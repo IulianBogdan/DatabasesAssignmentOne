@@ -20,12 +20,12 @@ namespace DatabasesWeek9Execise.Controllers
 
         public bool IsUsernameValid(string username)
         {
-            return _context.Users.Any(x => x.Username == username) ? false : true;
+            return !_context.Users.Any(x => x.Username == username);
         }
 
-        public bool IsAddressValid(string city, int postnr)
+        public bool IsPostNumberValid(int postnr)
         {
-            return _context.City.Any(x => (x.Name == city && x.PostNumber == postnr)) ? true : false;
+            return _context.City.Any(x => x.PostNumber == postnr);
         }
 
        public async Task<bool> IsAddressValidFromApi(string city, int postnr, int streetnr, string streetName)

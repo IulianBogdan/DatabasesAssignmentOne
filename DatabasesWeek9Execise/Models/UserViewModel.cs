@@ -35,6 +35,7 @@ namespace DatabasesWeek9Execise.Models
 
         [Display(Name = "City")]
         [Required(ErrorMessage = "Last one I promise, fill it in please!")]
+        [Remote("IsAddressValidFromApi", "Validation", AdditionalFields = "PostNr,StreetNumber,StreetName", ErrorMessage = "Invalid address")]
         public string City { get; set; }
     }
 }

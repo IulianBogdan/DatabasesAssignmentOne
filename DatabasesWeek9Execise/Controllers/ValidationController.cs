@@ -28,14 +28,15 @@ namespace DatabasesWeek9Execise.Controllers
             return _context.City.Any(x => x.PostNumber == postnr);
         }
 
-       public async Task<bool> IsAddressValidFromApi(string city, int postnr, int streetnr, string streetName)
+       public async Task<bool> IsAddressValidFromApi(string city, int postnr, int streetNr, string streetName)
        {
-            var url = "https://dawa.aws.dk/adresser{0}";
-            var address = "q=" + streetName + " " + streetnr + "," + postnr + " " + city;
+            var url = "https://dawa.aws.dk/autocomplete?caretpos=28&fuzzy=&q={0}";
+            var address = "q=" + streetName + " " + streetNr + "," + postnr + " " + city;
             var client = new HttpClient();
             var content = new StringContent(url + address, Encoding.UTF8, "application/x-www-form-urlencoded");
             var response = await client.GetAsync(string.Format(url, content));
             var result = response.Content.ReadAsStringAsync();
+
             return false;
        }
     }

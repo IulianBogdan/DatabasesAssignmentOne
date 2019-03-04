@@ -20,22 +20,23 @@ namespace DatabasesWeek9Execise.Controllers
 
         public bool IsUsernameValid(string username)
         {
-            return _context.Users.Any(x => x.Username == username) ? false : true;
+            return !_context.Users.Any(x => x.Username == username);
         }
 
-        public bool IsAddressValid(string city, int postnr)
+        public bool IsPostNumberValid(int postnr)
         {
-            return _context.City.Any(x => (x.Name == city && x.PostNumber == postnr)) ? true : false;
+            return _context.City.Any(x => x.PostNumber == postnr);
         }
 
-       public async Task<bool> IsAddressValidFromApi(string city, int postnr, int streetnr, string streetName)
+       public async Task<bool> IsAddressValidFromApi(string city, int postnr, int streetNr, string streetName)
        {
-            var url = "https://dawa.aws.dk/adresser{0}";
-            var address = "q=" + streetName + " " + streetnr + "," + postnr + " " + city;
+            var url = "https://dawa.aws.dk/autocomplete?caretpos=28&fuzzy=&q={0}";
+            var address = "q=" + streetName + " " + streetNr + "," + postnr + " " + city;
             var client = new HttpClient();
             var content = new StringContent(url + address, Encoding.UTF8, "application/x-www-form-urlencoded");
             var response = await client.GetAsync(string.Format(url, content));
             var result = response.Content.ReadAsStringAsync();
+
             return false;
        }
     }

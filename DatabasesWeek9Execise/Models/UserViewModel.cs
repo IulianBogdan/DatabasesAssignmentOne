@@ -29,12 +29,13 @@ namespace DatabasesWeek9Execise.Models
         public int StreetNumber { get; set; }
 
         [Display(Name = "Post number")]
-        [Required(ErrorMessage = "Last one I promise, fill it in please!")]
+        [Required(ErrorMessage = "Post number is required")]
+        [Remote("IsPostNumberValid", "Validation", ErrorMessage = "The post number is not correct")]
         public int PostNr { get; set; }
 
         [Display(Name = "City")]
-        [Required(ErrorMessage = "Just in case.")]
-        [Remote("IsAddressValidFromApi", "Validation", AdditionalFields = "PostNr,StreetNumber,StreetName", ErrorMessage = "The address is invalid. Check the post code/city.")]
+        [Required(ErrorMessage = "Last one I promise, fill it in please!")]
+        [Remote("IsAddressValidFromApi", "Validation", AdditionalFields = "PostNr,StreetNumber,StreetName", ErrorMessage = "Invalid address")]
         public string City { get; set; }
     }
 }
